@@ -2,16 +2,11 @@ const terminalImage = require('terminal-image');
 const betisAdvice = require('./data/betis_advice.json');
 
 const betisLog = (image) => {
-  let con = console;
+  let con = console.log;
   let activeRandom = false;
   let testIndex = 0;
 
-  con.options = function ({ quotes, index }) {
-    activeRandom = quotes;
-    testIndex = index;
-  };
-
-  con.betis = function() {
+  console.log = function() {
 
     let i,
       css = "color: green";
@@ -31,7 +26,7 @@ const betisLog = (image) => {
       randomIndex = testIndex;
     }
     stringOfArgs = randomIndex === 2 ? ' ' : stringOfArgs;
-    const message = activeRandom ? `${betisAdvice[randomIndex]}: ${stringOfArgs}` : stringOfArgs;
+    const message = `${betisAdvice[randomIndex]}: ${stringOfArgs}`;
     // Add the bubble if there is something to log!
     if(stringOfArgs.length > 0) {
       betis[0] = betis[0] + "                      ---" + ("-".repeat(message.length)) + "-";
@@ -41,14 +36,18 @@ const betisLog = (image) => {
 
     // Log the betis!
     for(i = 0; i < betis.length; i++) {
-      console.log(betis[i]);
+      con.apply(console, [betis[i]]);
     }
   }
 };
 
 const init = async () => {
-  const image = await terminalImage.file('betislog.png');
+  const image = await terminalImage.file('betislog.png', {width: '15%', height: '20%'});
   betisLog(image);
 };
+
+init().then(() => {
+  console.log('test');
+})
 
 module.exports = init;
