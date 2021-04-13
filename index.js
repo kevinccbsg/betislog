@@ -46,8 +46,4 @@ const init = async () => {
   betisLog(image);
 };
 
-init().then(() => {
-  console.log('test');
-})
-
 module.exports = init;
