@@ -42,7 +42,7 @@ const betisLog = (image) => {
 };
 
 const init = async () => {
-  const image = await terminalImage.file('betislog.png', {width: '15%', height: '20%'});
+  const image = await terminalImage.file(__dirname + 'betislog.png', {width: '15%', height: '20%'});
   betisLog(image);
 };
 
